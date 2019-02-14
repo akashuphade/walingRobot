@@ -133,7 +133,7 @@ function getDirection($currentDirection, $rotation)
 					$direction = "South";
 					break;
 				case "south":
-					$direction = "east";
+					$direction = "East";
 					break;
 				case "east":
 					$direction = "North";
