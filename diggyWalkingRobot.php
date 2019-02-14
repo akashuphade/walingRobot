@@ -38,7 +38,7 @@ if(!in_array(strtolower($robotDirection), $arrDirection))
 $result = preg_replace("/[^rRlLwW0-9]+/", "", $strWalk);
 
 //Check if walk string contains other characters than alphanumeric or after replacing 
-//non allowed characters in string if both string are not same means string is invalid
+//non allowed characters in string if both strings are not same means string is invalid
 if(!ctype_alnum($strWalk) || $result!=$strWalk)
 	$errorMessage.="walk string is invalid";
 
@@ -58,16 +58,21 @@ $strLen = strlen($strWalk);
 for($i=0; $i<$strLen; $i++)
 {
 	if(!empty($previousChar) && is_numeric($previousChar) && is_numeric($strWalk[$i]))
-		$arrWalk[$i-1] = "$previousChar$strWalk[$i]";
+	{
+		$arrWalk[count($arrWalk)-1] = "$previousChar$strWalk[$i]";
+		$previousChar = "$previousChar$strWalk[$i]";
+	}	
 	else 
+	{	
 		$arrWalk[]= $strWalk[$i];
-	
-	$previousChar = $strWalk[$i];
+		$previousChar = $strWalk[$i];
+	}
 }
 
 $previousAction = "";
 
-/* Once we check all the validations then perform the further processing */
+/* Once we check all the validations then perform the further processing 
+	to get the final direction of robot and X, Y positions */
 foreach($arrWalk as $action)
 {
 	if(!is_numeric($action))
